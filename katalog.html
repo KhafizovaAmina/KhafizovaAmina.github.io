@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог | BOTANICA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .catalog-container {
+            padding: 80px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #A0BC87; 
+            min-height: 100vh;
+        }
+
+        .catalog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .catalog-header h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .catalog-header p {
+            color: white;
+            font-size: 18px;
+        }
+
+        .search-filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 14px 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #eee;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: flex;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        
+    .add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+}
+
+.add-to-cart:hover {
+    background-color: var(--accent-color);
+}
+</style>
+</head>
+<body class="catalog-page">
+
+<!-- Шапка -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">BOTANICA</a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html#about">О нас</a></li>
+                <li><a href="katalog.html">Каталог</a></li>
+                <li><a href="index.html#delivery">Оплата и доставка</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <div class="auth-cart">
+            <a href="#" class="account-icon" id="accountIcon"></a>
+            <a href="korzina.html" class="cart-icon">🛒<span class="cart-count">0</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- Основной контент каталога -->
+<main class="catalog-container">
+    <div class="catalog-header">
+        <h1>Наш каталог цветов</h1>
+        <p>Выберите идеальный букет для любого случая</p>
+    </div>
+
+    <!-- Поиск и фильтры -->
+    <div class="search-filter-container">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Поиск по названию...">
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="bouquet">Букеты</button>
+            <button class="filter-btn" data-filter="box">Цветочные коробки</button>
+            <button class="filter-btn" data-filter="bridal">Свадебные букеты</button>
+        </div>
+    </div>
+
+    <!-- Карточки товаров -->
+    <div class="products-grid" id="productsGrid">
+        <!-- Товары будут добавляться через JavaScript -->
+    </div>
+</main>
+
+<!-- Подвал -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html" class="logo">BOTANICA</a>
+            </div>
+            <div class="footer-slogan">
+                <p>Всегда свежие цветы с бесплатной доставкой от 2500₽ для Ваших любимых</p>
+            </div>
+            <div class="footer-contacts">
+                <div class="contact-item phone">
+                    <a href="tel:+79393359635">+7 939 335 96 35</a>
+                </div>
+                <div class="contact-item email">
+                    <a href="mailto:info@botanicalavka.ru">info@botanicalavka.ru</a>
+                </div>
+                <div class="contact-item address">
+                    <span>ул. Карла Маркса д.31 с.2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно входа -->
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-close">&times;</div>
+        <h2>Авторизация</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="loginEmail" placeholder="Email или телефон" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+            <div class="register-link">
+                Нет аккаунта? <a href="registr.html" class="register-text">Зарегистрируйтесь</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// === Массив букетов ===
+const bouquets = [
+    { id: 1, name: "Романтика", price: 3200, image: "bouquet1.jpg", category: "bouquet" },
+    { id: 2, name: "Нежность", price: 2800, image: "bouquet2.jpg", category: "bouquet" },
+    { id: 3, name: "Люкс", price: 4500, image: "bouquet3.jpg", category: "box" },
+    { id: 4, name: "Свадебный", price: 5200, image: "bouquet4.jpg", category: "bridal" },
+    { id: 5, name: "Весенний", price: 2300, image: "bouquet5.jpg", category: "bouquet" },
+    { id: 6, name: "Минимализм", price: 3800, image: "bouquet6.jpg", category: "box" }
+];
+
+// === Отображение букетов ===
+function displayBouquets(list) {
+    const container = document.querySelector('.products-grid');
+    if (!container) return;
+
+    container.innerHTML = '';
+    list.forEach(b => {
+        const div = document.createElement('div');
+        div.className = 'product-card';
+        div.innerHTML = `
+            <img src="${b.image}" alt="${b.name}" class="product-image">
+            <div class="product-info">
+                <div class="product-title">${b.name}</div>
+                <div class="product-price">${b.price} ₽</div>
+                <button class="add-to-cart" data-id="${b.id}">+</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    // Назначаем обработчики событий для кнопок "+"
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', addToCart);
+    });
+}
+
+// === Проверка авторизации ===
+function checkAuth() {
+    return localStorage.getItem('isLoggedIn') === 'true';
+}
+
+// === Обновление иконки аккаунта / кнопки выхода ===
+function updateAuthUI() {
+    const accountIcon = document.getElementById("accountIcon");
+    if (!accountIcon) return;
+
+    if (checkAuth()) {
+        // Кнопка "Выход"
+        accountIcon.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 0 0 1-2-2V5a2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>`;
+        accountIcon.title = "Выйти";
+        accountIcon.onclick = function(e) {
+            e.preventDefault();
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('pendingProductId');
+                localStorage.removeItem('cart');
+                updateAuthUI();
+                window.location.reload(); // Перезагрузка для обновления интерфейса
+            }
+        };
+    } else {
+        // Иконка аккаунта
+        accountIcon.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>`;
+        accountIcon.title = "Войти";
+        accountIcon.onclick = function(e) {
+            e.preventDefault();
+            openLoginModal();
+        };
+    }
+}
+
+// === Добавление товара в корзину ===
+function addToCart(e) {
+    const id = parseInt(e.target.dataset.id);
+    if (!checkAuth()) {
+        e.preventDefault();
+        openLoginModal(id);
+        return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const bouquet = bouquets.find(b => b.id === id);
+
+    const existingItem = cart.find(item => item.id === id);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        bouquet.quantity = 1;
+        cart.push(bouquet);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+
+    e.target.textContent = '✓';
+    e.target.style.backgroundColor = '#4CAF50';
+    setTimeout(() => {
+        e.target.textContent = '+';
+        e.target.style.backgroundColor = 'var(--primary-color)';
+    }, 1000);
+}
+
+// === Поиск и фильтрация ===
+function filterBouquets() {
+    const query = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const filtered = bouquets.filter(b => b.name.toLowerCase().includes(query));
+    displayBouquets(filtered);
+}
+
+// === Обновление счётчика корзины ===
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.querySelectorAll('.cart-count').forEach(el => {
+        el.textContent = totalItems;
+    });
+}
+
+// === Открытие модального окна авторизации ===
+function openLoginModal(productId = null) {
+    const loginModal = document.getElementById('loginModal');
+    if (!loginModal) return;
+
+    if (checkAuth()) return; // Запрет повторного входа
+
+    loginModal.style.display = 'flex';
+    if (productId) localStorage.setItem('pendingProductId', productId);
+}
+
+// === Закрытие модального окна ===
+function closeLoginModal() {
+    const loginModal = document.getElementById('loginModal');
+    if (loginModal) loginModal.style.display = 'none';
+}
+
+// === Обработка формы входа ===
+document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    if (email && password) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userEmail', email);
+        closeLoginModal();
+        updateAuthUI();
+
+        alert('Вы успешно вошли!');
+
+        const pendingId = localStorage.getItem('pendingProductId');
+        if (pendingId) {
+            localStorage.removeItem('pendingProductId');
+            const id = parseInt(pendingId);
+            const addButton = document.querySelector(`.add-to-cart[data-id="${id}"]`);
+            if (addButton) addButton.click();
+        }
+
+        if (window.location.pathname.includes('enter.html')) {
+            window.location.href = 'index.html';
+        }
+    } else {
+        alert('Пожалуйста, заполните все поля');
+    }
+});
+
+// === Закрытие по клику вне формы ===
+document.getElementById('loginModal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeLoginModal();
+});
+
+// === При загрузке страницы ===
+window.addEventListener('DOMContentLoaded', () => {
+    updateAuthUI();
+    updateCartCount();
+
+    // ВАЖНО — ОТСЮДА СТАРТУЕМ РЕНДЕР БУКЕТОВ
+    displayBouquets(bouquets);
+
+    // Обработчики событий
+    document.getElementById('searchInput')?.addEventListener('input', filterBouquets);
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            filterBouquets();
+        });
+    });
+
+    document.querySelectorAll('.cart-icon').forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            if (!checkAuth()) {
+                e.preventDefault();
+                openLoginModal();
+            }
+        });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight + 20;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+
+<!-- Скрипт -->
+<script src="script.js"></script>
+</body>
+</html>

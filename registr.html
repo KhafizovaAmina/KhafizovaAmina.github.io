@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | BOTANICA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .registration-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #777; 
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .login-text {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .login-text:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .registration-container {
+                margin: 60px 15px;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка сайта -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">BOTANICA</a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html#about">О нас</a></li>
+                <li><a href="katalog.html">Каталог</a></li>
+                <li><a href="index.html#delivery">Оплата и доставка</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <!-- Иконка корзины остаётся, но убираем иконку аккаунта -->
+        <div class="auth-cart">
+            <a href="korzina.html" class="cart-icon">🛒<span class="cart-count">0</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- Форма регистрации -->
+<main class="container">
+    <div class="registration-container">
+        <h2>Регистрация</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="regName">Ваше имя:</label>
+                <input type="text" id="regName" placeholder="Иванов Иван" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email:</label>
+                <input type="email" id="regEmail" placeholder="ivanov@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="regPhone">Телефон (необязательно):</label>
+                <input type="tel" id="regPhone" placeholder="+7 (999) 999-99-99">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Пароль:</label>
+                <input type="password" id="regPassword" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="submit-btn">Зарегистрироваться</button>
+        </form>
+        <div class="login-link">
+            Уже есть аккаунт? <a href="enter.html" class="login-text">Войдите</a>
+        </div>
+    </div>
+</main>
+
+<!-- Подвал -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html" class="logo">BOTANICA</a>
+            </div>
+            <div class="footer-slogan">
+                <p>Всегда свежие цветы с бесплатной доставкой от 2500₽ для Ваших любимых</p>
+            </div>
+            <div class="footer-contacts">
+                <div class="contact-item phone">
+                    <a href="tel:+79393359635">+7 939 335 96 35</a>
+                </div>
+                <div class="contact-item email">
+                    <a href="mailto:info@botanicalavka.ru">info@botanicalavka.ru</a>
+                </div>
+                <div class="contact-item address">
+                    <span>ул. Карла Маркса д.31 с.2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно авторизации -->
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-close">&times;</div>
+        <h2>Авторизация</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="loginEmail" placeholder="Email или телефон" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+            <div class="register-link">
+                Впервые на сайте? <a href="registr.html" class="register-text">Зарегистрируйтесь</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // === Открытие модального окна авторизации ===
+    function openLoginModal() {
+        const loginModal = document.getElementById('loginModal');
+        if (!loginModal) return;
+
+        loginModal.style.display = 'flex';
+    }
+
+    // === Закрытие модального окна ===
+    function closeLoginModal() {
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) loginModal.style.display = 'none';
+    }
+
+    // === Обработка клика вне формы — закрытие окна ===
+    document.getElementById('loginModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeLoginModal();
+    });
+
+    // === Обработка формы регистрации ===
+    document.getElementById('registrationForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+
+        if (!name || !email || !password) {
+            alert('Пожалуйста, заполните обязательные поля: имя, email и пароль');
+            return;
+        }
+
+        // Здесь можно отправить данные на сервер
+        console.log('Данные регистрации:', { name, email, phone, password });
+
+        // Пример сохранения данных в localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userName', name);
+
+        alert('Вы успешно зарегистрировались!');
+        window.location.href = 'person.html';
+    });
+
+    // Проверка авторизации при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'person.html';
+        }
+    });
+</script>
+
+</body>
+</html>

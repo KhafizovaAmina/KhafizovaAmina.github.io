@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | BOTANICA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main.container {
+            flex: 1 0 auto;
+        }
+        .main-footer {
+            flex-shrink: 0;
+        }
+        .login-container {
+            max-width: 500px;
+            margin: 100px auto 60px;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        #loginPageForm .form-group {
+            margin-bottom: 20px;
+        }
+
+        #loginPageForm input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        #loginPageForm input::placeholder {
+            color: #999;
+        }
+
+        #loginPageForm input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .register-link a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 80px auto 40px;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                margin: 60px 15px 30px;
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">BOTANICA</a>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html#about">О нас</a></li>
+                    <li><a href="katalog.html">Каталог</a></li>
+                    <li><a href="index.html#delivery">Оплата и доставка</a></li>
+                    <li><a href="index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-cart">
+                <a href="#" class="login-btn">Вход</a>
+                <a href="korzina.html" class="cart-icon">
+    🛒
+    <span class="cart-count">0</span>
+</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Форма входа -->
+    <main class="container">
+        <div class="login-container">
+            <div class="modal-close" onclick="window.location.href='index.html'">&times;</div>
+            <h1>Авторизация</h1>
+            <form id="loginPageForm">
+                <div class="form-group">
+                    <input type="text" id="loginEmail" name="email" placeholder="Email или номер телефона" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" name="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="submit-btn">Войти</button>
+            </form>
+            <div class="register-link">
+                Впервые на сайте? <a href="registr.html">Зарегистрируйтесь</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html" class="logo">BOTANICA</a>
+                </div>
+                <div class="footer-slogan">
+                    <p>Всегда свежие цветы с бесплатной доставкой от 2500₽ для Ваших любимых</p>
+                </div>
+                <div class="footer-contacts">
+                    <div class="contact-item phone">
+                        <a href="tel:+79393359635">+7 939 335 96 35</a>
+                    </div>
+                    <div class="contact-item email">
+                        <a href="mailto:info@botanicalavka.ru">info@botanicalavka.ru</a>
+                    </div>
+                    <div class="contact-item address">
+                        <span>ул. Карла Маркса д.31 с.2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      document.getElementById('loginPageForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          const email = document.getElementById('loginEmail').value;
+          const password = document.getElementById('loginPassword').value;
+
+          // Здесь можно добавить отправку данных на сервер
+          console.log('Данные для входа:', { email, password });
+
+          // Уведомление об успешном входе
+          alert('Вы успешно вошли в систему!');
+
+          // Перенаправление на страницу личного кабинета
+          window.location.href = 'person.html';
+      });
+  </script>
+</body>
+</html>

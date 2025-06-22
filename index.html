@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOTANICA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Стили для секций */
+        section {
+            scroll-margin-top: 80px;
+        }
+        .about-section {
+            padding: 80px 0;
+            margin-top: -20px;
+        }
+        .about-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .about-text {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Стили для модального окна */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #6b7c4c;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #6b7c4c;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #6b7c4c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #5a6a3f;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        .register-text {
+            color: #6b7c4c;
+            text-decoration: none;
+        }
+
+        .register-text:hover {
+            text-decoration: underline;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7c4c;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+            color: #5a6a3f;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчик для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight + 20;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Шапка -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">BOTANICA</a>
+        <nav>
+            <ul>
+                <li><a href="index.html#about">О нас</a></li>
+                <li><a href="katalog.html">Каталог</a></li>
+                <li><a href="index.html#delivery-info">Оплата и доставка</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="auth-cart">
+            <!-- Иконка аккаунта -->
+            <a href="enter.html" class="account-icon" id="accountIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <!-- Корзина -->
+            <a href="korzina.html" class="cart-icon">
+    🛒
+    <span class="cart-count">0</span>
+</a>
+        </div>
+    </div>
+</header>
+
+<!-- Модальное окно авторизации -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Авторизация</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="loginEmail" name="email" placeholder="Email или номер телефона" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" name="password" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+        </form>
+        <div class="register-link">
+            Впервые на сайте? <a href="registr.html" class="register-text">Зарегистрируйтесь</a>
+        </div>
+    </div>
+</div>
+
+    <!-- Главная секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>СОЗДАЁМ <span class="love">любовь</span> ЧЕРЕЗ ЦВЕТЫ</h1>
+            <a href="katalog.html" class="order-btn">Заказать букет</a>
+        </div>
+
+        <div class="scroll-down" onclick="scrollToNextSection()">↓</div>
+    </section>
+
+
+  <!-- Блок "О нас" -->
+      <section class="about-section" id="about">
+          <div class="container">
+              <h2>Добро пожаловать в цветочную лавку BOTANICA!</h2>
+              <div class="about-text">
+                  <p>Мы — команда увлеченных флористов, для которых цветы — это не просто бизнес, а искусство, способное передать эмоции и создать атмосферу. Наша особенность — индивидуальный подход к каждому клиенту. Неважно - заказываете вы букет по особому поводу за две недели или вам нужны цветы прямо сейчас - мы вкладываем душу в каждый заказ.</p>
+
+                  <p>Наши флористы придумают стильное решение на любой запрос, а курьеры бережно и вовремя доставят все в специальной коробке с рекомендациями по уходу, чтобы получатель мог наслаждаться своим цветочным подарком как можно дольше.</p>
+
+                  <p>В BOTANICA мы также предлагаем широкий выбор растений и аксессуаров для создания идеального флористического оформления. Каждый наш букет — это результат тщательной работы и любви к своему делу. Мы уверены, что с нами каждый момент станет ярче и запоминающимся!</p>
+              </div>
+
+              <div class="about-gallery">
+                  <div class="vertical-photo">
+                      <img src="photo1aboutUs.png" alt="Флорист BOTANICA за работой" class="rounded">
+                  </div>
+                  <div class="horizontal-photos">
+                      <img src="photo2aboutUs.png" alt="Букет от BOTANICA" class="rounded">
+                      <img src="photo3aboutUs.png" alt="Магазин BOTANICA" class="rounded">
+                  </div>
+              </div>
+              <div class="invitation-text">
+                  Приходите к нам и откройте для себя мир цветов вместе с BOTANICA!
+              </div>
+          </div>
+      </section>
+
+  <!-- ... остальной код ... -->
+
+  <!-- Секция категорий -->
+      <section class="categories-section">
+          <!-- Букеты по поводу -->
+          <a href="katalog.html?filter=bouquet" class="category-card" style="background-image: url('buketPovod.jpg');">
+              <div class="category-title">Букеты по любому поводу</div>
+          </a>
+
+          <!-- Цветочные композиции -->
+          <a href="katalog.html?filter=box" class="category-card" style="background-image: url('flowerKompoz.jpg');">
+              <div class="category-title">Цветочные композиции</div>
+          </a>
+
+          <!-- Букет невесты -->
+          <a href="katalog.html?filter=bridal" class="category-card" style="background-image: url('buketNevest.jpg');">
+              <div class="category-title">Букет невесты</div>
+          </a>
+      </section>
+
+      <!-- Нижний блок -->
+      <section class="bottom-section" id="delivery-info">
+          <div class="container">
+              <div class="bottom-grid">
+                  <!-- Форма "Написать флористу" -->
+                  <div class="contact-form">
+                    <div class="contact-form-left">
+                      <h2>Написать<br>флористу</h2>
+                    </div>
+                    <div class="contact-form-right">
+                      <p>Оставьте нам ваши данные, флорист свяжется с вами, чтобы помочь с выбором и обсудить детали заказа</p>
+                      <form id="florist-form">
+                        <div class="form-group">
+                          <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                          <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Отправить</button>
+                      </form>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Секция оплаты и доставки -->
+      <section class="delivery-payment-section" id="delivery-payment">
+          <div class="container">
+              <!-- Блоки доставки и оплаты -->
+              <div class="delivery-payment-grid">
+                  <!-- Блок доставки -->
+                  <div class="delivery-block">
+                      <h2>Доставка</h2>
+                      <div class="delivery-content">
+                          <ul class="styled-list">
+                              <li>По городу - <strong>500 ₽</strong></li>
+                              <li>Удалённые районы - <em>индивидуальный расчёт</em></li>
+                              <li>Время доставки: <span class="highlight">7:45 - 20:15</span></li>
+                              <li>Праздничные дни - <span class="notice">уточняйте</span></li>
+                          </ul>
+                      </div>
+                  </div>
+
+                  <!-- Блок оплаты -->
+                  <div class="payment-block">
+                      <h2>Оплата</h2>
+                      <div class="payment-content">
+                          <ul class="styled-list payment-methods">
+                              <li>💵 Наличные</li>
+                              <li>📱 СБП (QR-код)</li>
+                              <li>💳 Банковская карта</li>
+                              <div class="card-icons">
+                                  <span class="visa">Visa</span>
+                                  <span class="mastercard">MasterCard</span>
+                                  <span class="mir">Мир</span>
+                              </div>
+                              <li>🏢 Расчётный счёт (для корп. клиентов)</li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+    <script src="script.js"></script>
+    <script>
+        // Плавная прокрутка
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчик для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight + 20;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+          <footer class="main-footer" id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Логотип -->
+                <div class="footer-logo">
+                    <a href="/" class="logo">BOTANICA</a>
+                </div>
+
+                <!-- Слоган -->
+                <div class="footer-slogan">
+                    <p>Всегда свежие цветы с бесплатной доставкой от 2500₽ для Ваших любимых</p>
+                </div>
+
+                <!-- Контакты -->
+                <div class="footer-contacts">
+                    <h3>Контакты</h3>
+                    <div class="contact-item phone">
+                        <a href="tel:+79393359635">+7 939 335 96 35</a>
+                    </div>
+                    <div class="contact-item email">
+                        <a href="mailto:info@botanicalavka.ru">info@botanicalavka.ru</a>
+                    </div>
+                    <div class="contact-item address">
+                        <span>ул. Карла Маркса д.31 с.2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </footer>
+
+              <!-- Добавить перед закрывающим тегом </body> в index.html -->
+              <div class="modal-overlay" id="loginModal">
+          <div class="modal-content">
+              <div class="modal-close">&times;</div>
+              <h2>Авторизация</h2>
+              <form id="loginForm">
+                  <div class="form-group">
+                      <input type="text" id="loginEmail" name="email" placeholder="Email или номер телефона" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" id="loginPassword" name="password" placeholder="Пароль" required>
+                  </div>
+                  <button type="submit" class="submit-btn">Войти</button>
+              </form>
+              <div class="register-link">
+                  Впервые на сайте? <a href="registr.html" class="register-text">Зарегистрируйтесь</a>
+              </div>
+          </div>
+      </div>
+
+
+
+</body>
+</html>

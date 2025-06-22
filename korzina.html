@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина | BOTANICA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #A0BC87; 
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 80px auto 60px;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cart-header h1 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .cart-header p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            margin-left: 15px;
+            min-width: 200px;
+        }
+
+        .cart-item-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .quantity-btn {
+            padding: 5px 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .remove-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .trash-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: #e74c3c;
+        }
+
+        .cart-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .checkout-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .empty-cart a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">BOTANICA</a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html#about">О нас</a></li>
+                <li><a href="katalog.html">Каталог</a></li>
+                <li><a href="index.html#delivery">Оплата и доставка</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <div class="auth-cart">
+            <a href="#" class="account-icon" id="accountIcon"></a>
+            <a href="korzina.html" class="cart-icon">🛒<span class="cart-count">0</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- Основной контент корзины -->
+<main class="cart-container">
+    <div class="cart-header">
+        <h1>Ваша корзина</h1>
+        <p>Проверьте выбранные букеты перед оформлением заказа</p>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+        <!-- Товары будут добавляться через JavaScript -->
+    </div>
+
+    <div class="cart-summary" id="cartSummary">
+        <!-- Итоговая сумма будет рассчитываться через JavaScript -->
+    </div>
+
+    <a href="#" id="checkoutBtn" class="checkout-btn">Оформить заказ</a>
+</main>
+
+<!-- Подвал -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html" class="logo">BOTANICA</a>
+            </div>
+            <div class="footer-slogan">
+                <p>Всегда свежие цветы с бесплатной доставкой от 2500₽ для Ваших любимых</p>
+            </div>
+            <div class="footer-contacts">
+                <div class="contact-item phone">
+                    <a href="tel:+79393359635">+7 939 335 96 35</a>
+                </div>
+                <div class="contact-item email">
+                    <a href="mailto:info@botanicalavka.ru">info@botanicalavka.ru</a>
+                </div>
+                <div class="contact-item address">
+                    <span>ул. Карла Маркса д.31 с.2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно входа -->
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-close">&times;</div>
+        <h2>Авторизация</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="loginEmail" placeholder="Email или телефон" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+            <div class="register-link">
+                Впервые на сайте? <a href="registr.html" class="register-text">Зарегистрируйтесь</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
